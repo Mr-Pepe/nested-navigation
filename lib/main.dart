@@ -24,12 +24,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<GlobalKey<NavigatorState>> _navigatorKeys = [
     _bookNavigatorKey,
-    _settingsNavigatorKey,
+    _coffeeNavigatorKey,
   ];
 
   Future<bool> _systemBackButtonPressed() {
     if (_navigatorKeys[_selectedIndex].currentState.canPop()) {
-      _navigatorKeys[_selectedIndex].currentState
+      _navigatorKeys[_selectedIndex]
+          .currentState
           .pop(_navigatorKeys[_selectedIndex].currentContext);
     } else {
       SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
@@ -48,8 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text("Book"),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                title: Text("Settings"),
+                icon: Icon(Icons.free_breakfast),
+                title: Text("Coffee"),
               )
             ],
             currentIndex: _selectedIndex,
@@ -64,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
             index: _selectedIndex,
             children: <Widget>[
               BookNavigator(),
-              SettingsNavigator(),
+              CoffeeNavigator(),
             ],
           ),
         ),
@@ -73,12 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-GlobalKey<NavigatorState> _bookNavigatorKey = GlobalKey<NavigatorState>();
-
 class BookNavigator extends StatefulWidget {
   @override
   _BookNavigatorState createState() => _BookNavigatorState();
 }
+
+GlobalKey<NavigatorState> _bookNavigatorKey = GlobalKey<NavigatorState>();
 
 class _BookNavigatorState extends State<BookNavigator> {
   @override
@@ -131,27 +132,27 @@ class Books2 extends StatelessWidget {
   }
 }
 
-GlobalKey<NavigatorState> _settingsNavigatorKey = GlobalKey<NavigatorState>();
-
-class SettingsNavigator extends StatefulWidget {
+class CoffeeNavigator extends StatefulWidget {
   @override
-  _SettingsNavigatorState createState() => _SettingsNavigatorState();
+  _CoffeeNavigatorState createState() => _CoffeeNavigatorState();
 }
 
-class _SettingsNavigatorState extends State<SettingsNavigator> {
+GlobalKey<NavigatorState> _coffeeNavigatorKey = GlobalKey<NavigatorState>();
+
+class _CoffeeNavigatorState extends State<CoffeeNavigator> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      key: _settingsNavigatorKey,
+      key: _coffeeNavigatorKey,
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
             settings: settings,
             builder: (BuildContext context) {
               switch (settings.name) {
                 case '/':
-                  return Settings1();
-                case '/settings2':
-                  return Settings2();
+                  return Coffee1();
+                case '/coffee2':
+                  return Coffee2();
               }
             });
       },
@@ -159,30 +160,30 @@ class _SettingsNavigatorState extends State<SettingsNavigator> {
   }
 }
 
-class Settings1 extends StatelessWidget {
+class Coffee1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         AppBar(
-          title: Text("Settings 1"),
+          title: Text("Coffee 1"),
         ),
         FlatButton(
-          child: Text("Go to settings 2"),
-          onPressed: () => Navigator.pushNamed(context, '/settings2'),
+          child: Text("Go to coffee 2"),
+          onPressed: () => Navigator.pushNamed(context, '/coffee2'),
         ),
       ],
     );
   }
 }
 
-class Settings2 extends StatelessWidget {
+class Coffee2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         AppBar(
-          title: Text("Settings 2"),
+          title: Text("Coffee 2"),
         ),
       ],
     );
