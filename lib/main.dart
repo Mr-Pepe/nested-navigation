@@ -28,13 +28,14 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   Future<bool> _systemBackButtonPressed() {
-    if (_navigatorKeys[_selectedIndex].currentState.canPop()) {
+    if (_navigatorKeys[_selectedIndex].currentState?.canPop() == true) {
       _navigatorKeys[_selectedIndex]
           .currentState
-          .pop(_navigatorKeys[_selectedIndex].currentContext);
+          ?.pop(_navigatorKeys[_selectedIndex].currentContext);
     } else {
       SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
     }
+    return Future.value(false);
   }
 
   @override
@@ -46,11 +47,11 @@ class _MyHomePageState extends State<MyHomePage> {
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.book),
-                title: Text("Book"),
+                label: "Book",
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.free_breakfast),
-                title: Text("Coffee"),
+                label: "Coffee",
               )
             ],
             currentIndex: _selectedIndex,
@@ -90,12 +91,10 @@ class _BookNavigatorState extends State<BookNavigator> {
         return MaterialPageRoute(
             settings: settings,
             builder: (BuildContext context) {
-              switch (settings.name) {
-                case '/':
-                  return Books1();
-                case '/books2':
-                  return Books2();
+              if (settings.name == "/books2") {
+                return Books2();
               }
+              return Books1();
             });
       },
     );
@@ -110,7 +109,7 @@ class Books1 extends StatelessWidget {
         AppBar(
           title: Text("Books 1"),
         ),
-        FlatButton(
+        TextButton(
           child: Text("Go to books 2"),
           onPressed: () => Navigator.pushNamed(context, '/books2'),
         ),
@@ -148,12 +147,10 @@ class _CoffeeNavigatorState extends State<CoffeeNavigator> {
         return MaterialPageRoute(
             settings: settings,
             builder: (BuildContext context) {
-              switch (settings.name) {
-                case '/':
-                  return Coffee1();
-                case '/coffee2':
-                  return Coffee2();
+              if (settings.name == "/coffee2") {
+                return Coffee2();
               }
+              return Coffee1();
             });
       },
     );
@@ -168,7 +165,7 @@ class Coffee1 extends StatelessWidget {
         AppBar(
           title: Text("Coffee 1"),
         ),
-        FlatButton(
+        TextButton(
           child: Text("Go to coffee 2"),
           onPressed: () => Navigator.pushNamed(context, '/coffee2'),
         ),
