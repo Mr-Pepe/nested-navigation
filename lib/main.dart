@@ -2,27 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
+    return const MaterialApp(
+      home: _MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class _MyHomePage extends StatefulWidget {
+  const _MyHomePage();
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<_MyHomePage> {
   int _selectedIndex = 0;
 
-  List<GlobalKey<NavigatorState>> _navigatorKeys = [
+  final List<GlobalKey<NavigatorState>> _navigatorKeys = [
     _bookNavigatorKey,
     _coffeeNavigatorKey,
   ];
@@ -44,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
       onWillPop: _systemBackButtonPressed,
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
+            items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.book),
                 label: "Book",
@@ -64,9 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
           top: false,
           child: IndexedStack(
             index: _selectedIndex,
-            children: <Widget>[
-              BookNavigator(),
-              CoffeeNavigator(),
+            children: const <Widget>[
+              _BookNavigator(),
+              _CoffeeNavigator(),
             ],
           ),
         ),
@@ -75,14 +79,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class BookNavigator extends StatefulWidget {
+class _BookNavigator extends StatefulWidget {
+  const _BookNavigator();
+
   @override
   _BookNavigatorState createState() => _BookNavigatorState();
 }
 
 GlobalKey<NavigatorState> _bookNavigatorKey = GlobalKey<NavigatorState>();
 
-class _BookNavigatorState extends State<BookNavigator> {
+class _BookNavigatorState extends State<_BookNavigator> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
@@ -92,9 +98,9 @@ class _BookNavigatorState extends State<BookNavigator> {
             settings: settings,
             builder: (BuildContext context) {
               if (settings.name == "/books2") {
-                return Books2();
+                return const Books2();
               }
-              return Books1();
+              return const Books1();
             });
       },
     );
@@ -102,15 +108,17 @@ class _BookNavigatorState extends State<BookNavigator> {
 }
 
 class Books1 extends StatelessWidget {
+  const Books1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         AppBar(
-          title: Text("Books 1"),
+          title: const Text("Books 1"),
         ),
         TextButton(
-          child: Text("Go to books 2"),
+          child: const Text("Go to books 2"),
           onPressed: () => Navigator.pushNamed(context, '/books2'),
         ),
       ],
@@ -119,26 +127,30 @@ class Books1 extends StatelessWidget {
 }
 
 class Books2 extends StatelessWidget {
+  const Books2({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         AppBar(
-          title: Text("Books 2"),
+          title: const Text("Books 2"),
         )
       ],
     );
   }
 }
 
-class CoffeeNavigator extends StatefulWidget {
+class _CoffeeNavigator extends StatefulWidget {
+  const _CoffeeNavigator();
+
   @override
   _CoffeeNavigatorState createState() => _CoffeeNavigatorState();
 }
 
 GlobalKey<NavigatorState> _coffeeNavigatorKey = GlobalKey<NavigatorState>();
 
-class _CoffeeNavigatorState extends State<CoffeeNavigator> {
+class _CoffeeNavigatorState extends State<_CoffeeNavigator> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
@@ -148,9 +160,9 @@ class _CoffeeNavigatorState extends State<CoffeeNavigator> {
             settings: settings,
             builder: (BuildContext context) {
               if (settings.name == "/coffee2") {
-                return Coffee2();
+                return const Coffee2();
               }
-              return Coffee1();
+              return const Coffee1();
             });
       },
     );
@@ -158,15 +170,17 @@ class _CoffeeNavigatorState extends State<CoffeeNavigator> {
 }
 
 class Coffee1 extends StatelessWidget {
+  const Coffee1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         AppBar(
-          title: Text("Coffee 1"),
+          title: const Text("Coffee 1"),
         ),
         TextButton(
-          child: Text("Go to coffee 2"),
+          child: const Text("Go to coffee 2"),
           onPressed: () => Navigator.pushNamed(context, '/coffee2'),
         ),
       ],
@@ -175,12 +189,14 @@ class Coffee1 extends StatelessWidget {
 }
 
 class Coffee2 extends StatelessWidget {
+  const Coffee2({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         AppBar(
-          title: Text("Coffee 2"),
+          title: const Text("Coffee 2"),
         ),
       ],
     );
