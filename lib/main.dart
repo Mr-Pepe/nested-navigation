@@ -31,7 +31,7 @@ class _MyHomePageState extends State<_MyHomePage> {
     _coffeeNavigatorKey,
   ];
 
-  Future<bool> _systemBackButtonPressed() {
+  Future<bool> _systemBackButtonPressed(bool didPop) {
     if (_navigatorKeys[_selectedIndex].currentState?.canPop() == true) {
       _navigatorKeys[_selectedIndex]
           .currentState
@@ -44,8 +44,9 @@ class _MyHomePageState extends State<_MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _systemBackButtonPressed,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: _systemBackButtonPressed,
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
